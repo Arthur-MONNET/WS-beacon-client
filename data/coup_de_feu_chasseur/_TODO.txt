@@ -1,0 +1,3 @@
+nom des fichier : tout lowercase séparé par des "_" et sans accent et numéroté et au format .wav
+
+ex : coup_de_feu_chasseur_1.wav

@@ -1,0 +1,3 @@
+nom des fichier : tout lowercase séparé par des "_" et sans accent et numéroté et au format .wav
+
+ex : oiseau_1.wav
