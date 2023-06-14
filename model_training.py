@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 from data_preprocessing import prepare_dataset
 
 # Define the number of classes
-num_classes = 4
+num_classes = 7
 
 # Prepare the dataset
 X, y = prepare_dataset()
@@ -43,4 +43,4 @@ model.compile(loss='categorical_crossentropy', optimizer='adam', metrics=['accur
 history = model.fit(X_train, y_train, validation_data=(X_val, y_val), epochs=50, batch_size=32, verbose=1)
 
 # Save the model
-model.save('saved_models/model.h5')
+model.save('saved_models/model_full.h5')

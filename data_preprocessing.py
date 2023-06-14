@@ -3,7 +3,7 @@ import numpy as np
 import librosa
 
 # Définir les classes de sons à reconnaître
-classes = ['_white', 'chouette_hulotte', 'hunter_shot', 'rouge_gorge']
+classes = ['_white', 'cerf', 'coup_de_feu_chasseur', 'Gelinotte des bois', 'Loups', 'moto_cross', 'Renard']
 
 # Définir les paramètres d'analyse des fichiers audio
 sampling_rate = 22050
@@ -27,27 +27,28 @@ def prepare_dataset():
     X = []
     y = []
 
-    # Parcourir les classes de sons à reconnaître
+    max_length = 44  # Longueur maximale des caractéristiques
+
     for i, cls in enumerate(classes):
-        # Extraire les fichiers sonores de la classe
         for file_name in os.listdir(os.path.join('data', cls)):
             file_path = os.path.join('data', cls, file_name)
-
-            # Charger le fichier audio
             signal, sr = librosa.load(file_path, sr=sampling_rate, duration=duration)
-
-            # Extraire les caractéristiques du fichier audio
             features = extract_features(signal)
 
-            # Ajouter les caractéristiques et la classe correspondante aux listes
+            # Ajuster les caractéristiques à la longueur maximale
+            if features.shape[1] < max_length:
+                features = np.pad(features, ((0, 0), (0, max_length - features.shape[1]), (0, 0)), mode='constant')
+            elif features.shape[1] > max_length:
+                features = features[:, :max_length, :]
+
             X.append(features)
             y.append(i)
 
-    # Convertir les listes en tableaux numpy
     X = np.array(X)
     y = np.array(y)
 
     return X, y
+
 
 if __name__ == '__main__':
     # Prétraiter les données et les enregistrer dans des fichiers numpy
