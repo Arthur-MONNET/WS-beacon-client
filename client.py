@@ -31,7 +31,7 @@ def on_close():
 
 ws.on_open = on_open
 ws.on_close = on_close
-ws.connect('wss://5acf-2a01-cb16-74-85d9-2c8b-456b-ae46-275b.eu.ngrok.io')
+ws.connect('wss://8fdf-2a01-cb15-16a-a300-b43f-7d66-fdee-4734.eu.ngrok.io')
 
 # Start the real-time sound recognition
 while True:
