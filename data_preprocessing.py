@@ -32,17 +32,24 @@ def prepare_dataset():
     for i, cls in enumerate(classes):
         for file_name in os.listdir(os.path.join('data', cls)):
             file_path = os.path.join('data', cls, file_name)
-            signal, sr = librosa.load(file_path, sr=sampling_rate, duration=duration)
-            features = extract_features(signal)
+            signal, sr = librosa.load(file_path, sr=sampling_rate, duration=None)  # Charger le signal audio complet
 
-            # Ajuster les caractéristiques à la longueur maximale
-            if features.shape[1] < max_length:
-                features = np.pad(features, ((0, 0), (0, max_length - features.shape[1]), (0, 0)), mode='constant')
-            elif features.shape[1] > max_length:
-                features = features[:, :max_length, :]
+            # Découper le signal en morceaux de durée spécifiée
+            num_segments = int(len(signal) / (duration * sr))
+            for j in range(num_segments):
+                segment_start = j * duration * sr
+                segment_end = (j + 1) * duration * sr
+                segment = signal[segment_start:segment_end]
+                features = extract_features(segment)
 
-            X.append(features)
-            y.append(i)
+                # Ajuster les caractéristiques à la longueur maximale
+                if features.shape[1] < max_length:
+                    features = np.pad(features, ((0, 0), (0, max_length - features.shape[1]), (0, 0)), mode='constant')
+                elif features.shape[1] > max_length:
+                    features = features[:, :max_length, :]
+
+                X.append(features)
+                y.append(i)
 
     X = np.array(X)
     y = np.array(y)
