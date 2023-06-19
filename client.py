@@ -4,6 +4,7 @@ import tensorflow as tf
 import librosa
 import websocket
 import json
+from datetime import datetime, timedelta
 
 # Load the trained model
 model = tf.keras.models.load_model("saved_models/model_full.h5")
@@ -23,7 +24,7 @@ def on_open():
     print('WebSocket connected')
 
     # Send a message to indicate that the connection is established
-    message = {'type': 'connection', 'payload': 'Sound recognition started'}
+    message = {'type': 'connection', 'sender': 'beacon', 'payload': 'Sound recognition started'}
     ws.send(json.dumps(message))
 
 def on_close():
@@ -31,7 +32,7 @@ def on_close():
 
 ws.on_open = on_open
 ws.on_close = on_close
-ws.connect('wss://8fdf-2a01-cb15-16a-a300-b43f-7d66-fdee-4734.eu.ngrok.io')
+ws.connect('wss://570f-2a01-cb1e-1c-faa9-7cbb-a157-5c71-93c4.eu.ngrok.io')
 
 # Start the real-time sound recognition
 while True:
@@ -58,31 +59,30 @@ while True:
 
     # Print the predicted sound class en francais
     # ['_white', 'cerf', coup_de_feu_chasseur', 'Gelinotte des bois', 'Loups', 'moto_cross', 'Renard']
+
     if sound_class == 0:
-        print("")
-    elif sound_class == 1:
         print("cerf")
-        message = {'type': 'balise', 'payload': 'cerf'}
+        message = {'type': 'new-alert', 'sender': 'beacon', 'payload': {'reporting': 1, 'location': 'montagne-de-vuache' }}
+        ws.send(json.dumps(message))
+    elif sound_class == 1:
+        print("coup_de_feu_chasseur")
+        message = {'type': 'new-alert', 'sender': 'beacon', 'payload': {'reporting': 2, 'location': 'montagne-de-vuache' }}
         ws.send(json.dumps(message))
     elif sound_class == 2:
-        print("coup_de_feu_chasseur")
-        message = {'type': 'balise', 'payload': 'coup_de_feu_chasseur'}
+        print("Gelinotte des bois")
+        message = {'type': 'new-alert', 'sender': 'beacon', 'payload': {'reporting': 3, 'location': 'montagne-de-vuache' }}
         ws.send(json.dumps(message))
     elif sound_class == 3:
-        print("Gelinotte des bois")
-        message = {'type': 'balise', 'payload': 'Gelinotte des bois'}
+        print("Loups")
+        message = {'type': 'new-alert', 'sender': 'beacon', 'payload': {'reporting': 4, 'location': 'montagne-de-vuache' }}
         ws.send(json.dumps(message))
     elif sound_class == 4:
-        print("Loups")
-        message = {'type': 'balise', 'payload': 'Loups'}
+        print("moto_cross")
+        message = {'type': 'new-alert', 'sender': 'beacon', 'payload': {'reporting': 5, 'location': 'montagne-de-vuache' }}
         ws.send(json.dumps(message))
     elif sound_class == 5:
-        print("moto_cross")
-        message = {'type': 'balise', 'payload': 'moto_cross'}
-        ws.send(json.dumps(message))
-    elif sound_class == 6:
         print("Renard")
-        message = {'type': 'balise', 'payload': 'Renard'}
+        message = {'type': 'new-alert', 'sender': 'beacon', 'payload': {'reporting': 6, 'location': 'montagne-de-vuache' }}
         ws.send(json.dumps(message))
     else:
-        print("Unknown sound")
+        print("")
