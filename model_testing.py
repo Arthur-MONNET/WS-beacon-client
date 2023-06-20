@@ -6,12 +6,9 @@ from sklearn.metrics import classification_report
 X_test = np.load('data_preprocessed/features.npy')
 y_test = np.load('data_preprocessed/labels.npy')
 
-# Chargement du modèle entraîné
 model = load_model('saved_models/model_full.h5')
 
-# Evaluation du modèle sur les données de test
 y_pred = np.argmax(model.predict(X_test), axis=1)
 
-# Affichage du rapport de classification
 target_names = ['cerf', 'coup_de_feu_chasseur', 'Gelinotte des bois', 'Loups', 'moto_cross', 'Renard', 'white']
 print(classification_report(y_test, y_pred, target_names=target_names))

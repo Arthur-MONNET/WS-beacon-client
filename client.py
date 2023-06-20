@@ -10,7 +10,7 @@ from datetime import datetime, timedelta
 model = tf.keras.models.load_model("saved_models/model_full.h5")
 
 # Define the sampling rate and frame length
-sr = 48000  # Modified sampling rate to match the second code
+sr = 48000
 frame_length = int(sr / 94 * 44)
 
 # Initialize the microphone
@@ -32,7 +32,7 @@ def on_close():
 
 ws.on_open = on_open
 ws.on_close = on_close
-ws.connect('wss://570f-2a01-cb1e-1c-faa9-7cbb-a157-5c71-93c4.eu.ngrok.io')
+ws.connect('wss://9b9c-2a01-cb16-202b-c55f-7058-255e-300c-800a.eu.ngrok.io')
 
 # Start the real-time sound recognition
 while True:
@@ -56,9 +56,6 @@ while True:
 
     # Get the predicted sound class
     sound_class = np.argmax(prediction, axis=1)
-
-    # Print the predicted sound class en francais
-    # ['_white', 'cerf', coup_de_feu_chasseur', 'Gelinotte des bois', 'Loups', 'moto_cross', 'Renard']
 
     if sound_class == 0:
         print("cerf")

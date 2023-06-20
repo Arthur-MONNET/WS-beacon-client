@@ -7,7 +7,7 @@ classes = ['cerf', 'coup_de_feu_chasseur', 'Gelinotte des bois', 'Loups', 'moto_
 
 # Définir les paramètres d'analyse des fichiers audio
 sampling_rate = 22050
-duration = 1  # réduire la durée pour traiter le son en temps réel
+duration = 1
 hop_length = 512
 n_mels = 128
 n_fft = 2048
