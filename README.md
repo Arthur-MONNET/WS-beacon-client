@@ -8,21 +8,21 @@ Assurez-vous d'avoir Python 3.x installé sur votre système.
 
 1. Clonez ce dépôt en utilisant la commande suivante :
 
-   ```bash
-   git clone https://github.com/Arthur-MONNET/WS-beacon-client.git
-    ```
+```bash
+git clone https://github.com/Arthur-MONNET/WS-beacon-client.git
+```
 
 2. Accédez au répertoire du projet :
 
-   ```bash
+```bash
    cd WS-beacon-client
-   ```
+```
 
 3.Exécutez le script `setup.sh` pour configurer l'environnement :
    
-   ```bash
-    ./setup.sh
-    ```
+```bash
+./setup.sh
+```
 
 ## Utilisation
 
