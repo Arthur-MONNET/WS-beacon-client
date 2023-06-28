@@ -15,7 +15,7 @@ git clone https://github.com/Arthur-MONNET/WS-beacon-client.git
 2. Accédez au répertoire du projet :
 
 ```bash
-   cd WS-beacon-client
+cd WS-beacon-client
 ```
 
 3.Exécutez le script `setup.sh` pour configurer l'environnement :
